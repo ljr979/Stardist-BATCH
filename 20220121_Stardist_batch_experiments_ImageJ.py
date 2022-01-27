@@ -1,4 +1,5 @@
-#@ DatasetIOService io
+
+#@ DatasetIOService io
 #@ CommandService command
 """ This example runs stardist on all tif files in a folder
 Full list of Parameters:
@@ -44,7 +45,6 @@ for img in image_paths:
     print(path_data)
     name=img.split('/')[-1]
     print(name)
-    #output_folder = f'{input_folder}{path_data}/'
     output_folder = '%s%s/'% (input_folder, path_data)
     print(output_folder)
     img = io.open(img)
