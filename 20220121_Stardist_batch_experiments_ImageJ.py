@@ -14,8 +14,9 @@ from de.csbdresden.stardist import StarDist2D
 import os
 from glob import glob
 #define input_folder as the top level folder with all the UNPROCESSED images in it make sure this has a forward slash on the end (if it can't find the directory of the images, it's likely because this this missing)
-input_folder = os.path.expanduser('C:\Users\lmcalary\Desktop\CELL PROFILER\Inputs\Image Sets\Plate Assays\AcGFP MG132\TileScan2/')
-
+input_folder = os.path.expanduser('C:\Users\lmcalary\Desktop\CELL PROFILER\Inputs\Image Sets\Code Test\Plate 1')
+input_folder = input_folder + '/'
+print(input_folder)
 #fill in the file identifier with whatever part of the filename that every image you want the script to pick up contains. i.e. it must be an identifier of ONLY the ones you wish to analyse, unique to these images.
 file_identifier = 'ch00'
 
@@ -41,16 +42,17 @@ print(image_paths)
 
 #this loop does the hard work! For every FILE PATH in the 'image_paths' directory, it grabs the folder it came from and the image name, reads it and does the prediction, then creates a new folder in your exports folder where the output can be saved
 for img in image_paths:
-    path_data = img.split('/')[-2]
-    print(path_data)
-    name=img.split('/')[-1]
-    print(name)
-    output_folder = '%s%s/'% (input_folder, path_data)
-    print(output_folder)
-    img = io.open(img)
-    res = command.run(StarDist2D, False,
+	img = img.replace('\\', '/')
+	path_data = img.split('/')[-2]
+	print(path_data)
+	name=img.split('/')[-1]
+	print(name)
+	output_folder = '%s%s/'% (input_folder, path_data)
+	print(output_folder)
+	img = io.open(img)
+	res = command.run(StarDist2D, False,
             "input", img,
             "modelChoice", "Versatile (fluorescent nuclei)",
             ).get()
-    label = res.getOutput("label")
-    io.save(label, os.path.join(output_folder,"label_%s" %(name)))
+	label = res.getOutput("label")
+	io.save(label, os.path.join(output_folder,"label_%s" %(name)))
