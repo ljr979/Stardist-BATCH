@@ -13,12 +13,12 @@ res = command.run(StarDist2D, False,
 from de.csbdresden.stardist import StarDist2D
 import os
 from glob import glob
-#define input_folder as the top level folder with all the UNPROCESSED images in it make sure this has a forward slash on the end (if it can't find the directory of the images, it's likely because this this missing)
-input_folder = os.path.expanduser('C:\Users\lmcalary\Desktop\CELL PROFILER\Inputs\Image Sets\Code Test\Plate 1')
+#define input_folder as the top level folder with all the UNPROCESSED images in it.
+input_folder = os.path.expanduser('C:Data\Images\Experiment01\TileScan')
 input_folder = input_folder + '/'
 print(input_folder)
 #fill in the file identifier with whatever part of the filename that every image you want the script to pick up contains. i.e. it must be an identifier of ONLY the ones you wish to analyse, unique to these images.
-file_identifier = 'ch00'
+file_identifier = 'Fill this space with your Nuclear Identifier'
 
 #this gathers the file PATH (the full directory in this case) for ALL of the .tif files in the input folder and puts them in a list we can loop over with the actual StarDist module(this is why it's important for you to make sure the input folder is correct and that it has only the images you don't want to analyse in each level underneath that top level)
 image_paths = [[os.path.join('%s/%s' % (root, filename)) for filename in files if file_identifier in filename] for root, dirs, files in os.walk(input_folder)]
